@@ -17,4 +17,16 @@ class NhanKhau extends Model
     {
         return $this->hasOne(ChungMinhThu::class, 'nhanKhauId', 'id');
     }
+
+    public function tamTru(): HasOne {
+        return  $this->hasOne(TamTru::class, 'nhanKhauId', 'id');
+    }
+
+    public function tamVang(): HasOne {
+        return  $this->hasOne(TamVang::class, 'nhanKhauId', 'id');
+    }
+
+    public function khaiTu(): HasOne {
+        return  $this->hasOne(KhaiTu::class, 'nguoiChetId', 'id');
+    }
 }

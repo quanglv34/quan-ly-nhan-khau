@@ -15,7 +15,9 @@ return new class extends Migration
     {
         Schema::create('dinh_chinh', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->unsignedBigInteger('hoKhauId');
+            $table->foreign('hoKhauId')->references('id')->on('ho_khau');
+
         });
     }
 

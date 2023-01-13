@@ -19,8 +19,12 @@ return new class extends Migration
             $table->string('maKhuVuc');
             $table->string('diaChi');
             $table->date('ngayLap');
-            $table->date('ngayChuyenDi');
-            $table->string('lyDoChuyen');
+            $table->date('ngayChuyenDi')->nullable();
+            $table->string('lyDoChuyen')->nullable();
+
+            $table->unsignedBigInteger('chuHoId');
+            $table->foreign('chuHoId')->references('id')->on('nhan_khau');
+
             $table->unsignedBigInteger('nguoiThucHienId');
             $table->foreign('nguoiThucHienId')->references('id')->on('users');
         });

@@ -2,11 +2,9 @@
 
 namespace Database\Factories;
 
+use Faker\Generator;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\NhanKhau>
- */
 class NhanKhauFactory extends Factory
 {
     /**
@@ -17,7 +15,13 @@ class NhanKhauFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'maNhanKhau' => 'NK'.$this->faker->randomNumber(5, true),
+            'hoVaTen'    => $this->faker->lastName().' '.
+                $this->faker->firstName(),
+            'ngaySinh'   => $this->faker->dateTimeThisDecade(),
+            'gioiTinh'   => $this->faker->boolean(),
+            'ngayChuyenDen' => $this->faker->dateTimeThisDecade(),
+            'queQuan'    => $this->faker->city(),
         ];
     }
 }

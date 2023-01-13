@@ -17,6 +17,11 @@ return new class extends Migration {
 
             $table->string('maNhanKhau')->unique();
 
+            $table->string('hoVaTen');
+            $table->date('ngaySinh');
+            $table->unsignedTinyInteger('gioiTinh');
+            $table->string('queQuan');
+
             $table->date('ngayChuyenDen')->nullable();
             $table->string('lyDoChuyenDen')->nullable();
 

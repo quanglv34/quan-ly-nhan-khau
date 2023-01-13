@@ -13,4 +13,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/login', '/portal/login');
+Route::redirect('/login', '/portal/login')->name('login');

@@ -15,15 +15,12 @@ return new class extends Migration
     {
         Schema::create('chung_minh_thu', function (Blueprint $table) {
             $table->id();
-            $table->string('soCMT');
-            $table->string('hoVaTen');
-            $table->date('ngaySinh');
-            $table->unsignedTinyInteger('gioiTinh');
-            $table->string('queQuan');
+            $table->string('soCMT')->unique();
+
             $table->string('noiCap');
             $table->date('ngayCap');
 
-            $table->unsignedBigInteger('nhanKhauId');
+            $table->unsignedBigInteger('nhanKhauId')->unique();
             $table->foreign('nhanKhauId')->references('id')
                 ->on('nhan_khau')
                 ->cascadeOnDelete();

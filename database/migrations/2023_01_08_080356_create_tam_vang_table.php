@@ -15,6 +15,13 @@ return new class extends Migration
     {
         Schema::create('tam_vang', function (Blueprint $table) {
             $table->id();
+            $table->string('maGiayTamTru', 50);
+            $table->string('noiTamTru');
+            $table->string('lyDo')->nullable();
+            $table->date('tuNgay');
+            $table->date('denNgay');
+            $table->unsignedBigInteger('nhanKhauId');
+            $table->foreign('nhanKhauId')->references('id')->on('nhan_khau');
             $table->timestamps();
         });
     }
