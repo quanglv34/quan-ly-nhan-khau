@@ -18,7 +18,7 @@ class NhanKhauFactory extends Factory
             'maNhanKhau' => 'NK'.$this->faker->randomNumber(5, true),
             'hoVaTen'    => $this->faker->lastName().' '.
                 $this->faker->firstName(),
-            'ngaySinh'   => $this->faker->dateTimeThisDecade(),
+            'ngaySinh'   => $this->faker->dateTimeBetween('-50 years', '-10 years'),
             'gioiTinh'   => $this->faker->boolean(),
             'ngayChuyenDen' => $this->faker->dateTimeThisDecade(),
             'queQuan'    => $this->faker->city(),

@@ -23,10 +23,23 @@ class TamVangRelationManager extends RelationManager
     public static function form(Form $form): Form
     {
         return $form
+            ->columns(1)
             ->schema([
-                Forms\Components\TextInput::make('id')
+                Forms\Components\TextInput::make('maGiayTamVang')
+                    ->label('Mã giấy tạm vắng')
+                    ->required()
+                    ->maxLength(50),
+                Forms\Components\TextInput::make('noiTamTru')
+                    ->label('Nơi tạm trú')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('lyDo')->label('Lý do')->maxLength(255),
+                Forms\Components\TextInput::make('tuNgay')->type('date')
+                    ->required()
+                    ->label('Từ ngày'),
+                Forms\Components\TextInput::make('denNgay')->type('date')
+                    ->required()
+                    ->label('Đến ngày'),
             ]);
     }
 
@@ -34,13 +47,18 @@ class TamVangRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id'),
+                Tables\Columns\TextColumn::make('maGiayTamVang')->label('Mã giấy tạm vắng'),
+                Tables\Columns\TextColumn::make('lyDo')->label('Lý do'),
+                Tables\Columns\TextColumn::make('noiTamTru')
+                    ->label('Nơi tạm trú'),
+                Tables\Columns\TextColumn::make('tuNgay')->date()->label('Từ ngày'),
+                Tables\Columns\TextColumn::make('denNgay')->date()->label('Đến ngày'),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()->modalWidth('lg'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

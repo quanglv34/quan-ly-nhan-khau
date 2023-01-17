@@ -17,7 +17,9 @@ class NhanKhauResource extends Resource
 {
     protected static ?string $model = NhanKhau::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationGroup = 'Quản lý nhân khẩu';
+
+    protected static ?string $navigationIcon = 'heroicon-o-user';
     protected static ?string $pluralModelLabel = 'Nhân khẩu';
     protected static ?string $modelLabel = 'Nhân khẩu';
     protected static ?string $slug = 'nhan-khau';
@@ -61,17 +63,15 @@ class NhanKhauResource extends Resource
                             Forms\Components\TextInput::make('diaChiMoi')
                                 ->label('Địa chỉ mới'),
 
-                            Forms\Components\Textarea::make('ghiChu')
+                            Forms\Components\TextInput::make('ghiChu')
                                 ->label('Ghi chú')
-                                ->autosize()
-                                ->rows(2)
                                 ->columnSpan('full')
                         ]),
                     Forms\Components\Fieldset::make('Chứng minh thư')
                         ->relationship('chungMinhThu')
                         ->schema([
                             Forms\Components\TextInput::make('soCMT')->label('Số
-                    CMT')->numeric()->maxLength(12),
+                    CMT')->maxLength(12),
                             Forms\Components\TextInput::make('noiCap')
                                 ->label('Nơi cấp'),
                             Forms\Components\TextInput::make('ngayCap')
@@ -113,7 +113,7 @@ class NhanKhauResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                //Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 

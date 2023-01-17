@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\NhanKhauResource\RelationManagers;
 
+use Auth;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -23,10 +24,29 @@ class KhaiTuRelationManager extends RelationManager
     public static function form(Form $form): Form
     {
         return $form
+            ->columns(1)
             ->schema([
-                Forms\Components\TextInput::make('id')
+                Forms\Components\Select::make('nguoiChetId')
+                    ->label('Người chết')
+                    ->disabled()
+                    ->relationship('nguoiChet', 'maNhanKhauVaHoVaTen')
+                    ->default(Auth::user()->id),
+                Forms\Components\TextInput::make('maGiayKhaiTu')
                     ->required()
+                    ->label('Mã giấy khai tử')
                     ->maxLength(255),
+                Forms\Components\TextInput::make('lyDoChet')
+                    ->required()
+                    ->label('Lý do chết')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('ngayChet')->label('Ngày chết')
+                    ->required()->type('date'),
+                Forms\Components\TextInput::make('ngayKhai')->label('Ngày khai')
+                    ->required()->type('date'),
+                Forms\Components\Select::make('nguoiKhaiId')
+                    ->relationship('nguoiKhai', 'name')
+                    ->label('Người khai')
+                    ->default(Auth::user()->id),
             ]);
     }
 
@@ -40,7 +60,7 @@ class KhaiTuRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()->modalWidth('lg'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

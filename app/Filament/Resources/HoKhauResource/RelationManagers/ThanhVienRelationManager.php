@@ -26,7 +26,7 @@ class ThanhVienRelationManager extends RelationManager
                 Forms\Components\Select::make('nhanKhauId')
                     ->searchable()
                     ->required()
-                    ->options(fn () => NhanKhau::all()->pluck('hoVaTen', 'id'))
+                    ->options(fn () => NhanKhau::all()->pluck('maNhanKhauVaHoVaTen', 'id'))
                     ->getOptionLabelFromRecordUsing(fn ($record) => "({$record->id}) {$record->hoVaTen}"),
                 Forms\Components\TextInput::make('quanHeVoiChuHo')->label('Quan hệ với chủ hộ')->required(),
             ]);

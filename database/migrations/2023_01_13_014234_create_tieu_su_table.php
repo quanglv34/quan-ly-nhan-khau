@@ -13,13 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tam_vang', function (Blueprint $table) {
+        Schema::create('tieu_su', function (Blueprint $table) {
             $table->id();
-            $table->string('maGiayTamVang', 50);
-            $table->string('noiTamTru');
-            $table->string('lyDo')->nullable();
-            $table->date('tuNgay');
-            $table->date('denNgay');
             $table->unsignedBigInteger('nhanKhauId');
             $table->foreign('nhanKhauId')->references('id')->on('nhan_khau');
             $table->timestamps();
@@ -33,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tam_vangs');
+        Schema::dropIfExists('tieu_sus');
     }
 };

@@ -18,7 +18,9 @@ class HoKhauResource extends Resource
 {
     protected static ?string $model = HoKhau::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationGroup = 'Quản lý nhân khẩu';
+
+    protected static ?string $navigationIcon = 'heroicon-o-user-group';
     protected static ?string $pluralModelLabel = 'Hộ khẩu';
     protected static ?string $modelLabel = 'Hộ khẩu';
     protected static ?string $slug = 'ho-khau';
@@ -42,7 +44,7 @@ class HoKhauResource extends Resource
                 lập')->type('date'),
                     Forms\Components\TextInput::make('ngayChuyenDi')->label('Ngày
                 chuyển đi')->type('date'),
-                    Forms\Components\Textarea::make('lyDoChuyen')
+                    Forms\Components\TextInput::make('lyDoChuyen')
                         ->label('Lý do chuyển'),
                     Forms\Components\Select::make('nguoiThucHienId')
                         ->required()
@@ -54,7 +56,7 @@ class HoKhauResource extends Resource
                         ->required()
                         ->label('Chủ hộ')
                         ->searchable()
-                        ->relationship('chuHo', 'hoVaTen'),
+                        ->relationship('chuHo', 'maNhanKhauVaHoVaTen'),
                 ])->columns(2),
             ]);
     }

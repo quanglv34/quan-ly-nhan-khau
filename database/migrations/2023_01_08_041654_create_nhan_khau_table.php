@@ -40,6 +40,9 @@ return new class extends Migration {
             $table->unsignedBigInteger('nguoiXoaId')->nullable();
             $table->foreign('nguoiXoaId')->references('id')->on('users')
                 ->nullOnDelete();
+
+            $table->string('maNhanKhauVaHoVaTen')->virtualAs('concat(\'(\',maNhanKhau, \') \', hoVaTen)');
+
         });
     }
 

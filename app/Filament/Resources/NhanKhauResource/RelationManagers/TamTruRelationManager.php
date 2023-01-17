@@ -23,11 +23,23 @@ class TamTruRelationManager extends RelationManager
     public static function form(Form $form): Form
     {
         return $form
+            ->columns(1)
             ->schema([
                 Forms\Components\TextInput::make('maGiayTamTru')
+                    ->label('Mã giấy tạm trú')
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('lyDo')->label('Lý do'),
+                    ->maxLength(50),
+                Forms\Components\TextInput::make('soDienThoaiNguoiDangKy')
+                    ->label('SĐT người đăng ký')
+                    ->required()
+                    ->maxLength(50),
+                Forms\Components\TextInput::make('lyDo')->label('Lý do')->maxLength(255),
+                Forms\Components\TextInput::make('tuNgay')->type('date')
+                    ->required()
+                    ->label('Từ ngày'),
+                Forms\Components\TextInput::make('denNgay')->type('date')
+                    ->required()
+                    ->label('Đến ngày'),
             ]);
     }
 
@@ -35,23 +47,25 @@ class TamTruRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('maGiayTamTru'),
-                Tables\Columns\TextColumn::make('lyDo'),
-                Tables\Columns\TextColumn::make('ngayDen')->date(),
-                Tables\Columns\TextColumn::make('ngayDi')->date(),
+                Tables\Columns\TextColumn::make('maGiayTamTru')->label('Mã giấy tạm trú'),
+                Tables\Columns\TextColumn::make('lyDo')->label('Lý do'),
+                Tables\Columns\TextColumn::make('soDienThoaiNguoiDangKy')
+                    ->label('SĐT người đăng ký'),
+                Tables\Columns\TextColumn::make('tuNgay')->date()->label('Từ ngày'),
+                Tables\Columns\TextColumn::make('denNgay')->date()->label('Đến ngày'),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()->modalWidth('lg'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                //Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 }
