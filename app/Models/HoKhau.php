@@ -31,12 +31,6 @@ class HoKhau extends Model
         return $this->hasMany(ThanhVienHoKhau::class, 'hoKhauId', 'id');
     }
 
-    public function nhanKhau(): HasManyThrough
-    {
-        return $this->hasManyThrough(NhanKhau::class, ThanhVienHoKhau::class,
-            'nhanKhauId', 'id', 'hoKhauId', 'id');
-    }
-
     public function dinhChinh(): HasMany {
         return $this->hasMany(DinhChinh::class, 'hoKhauId', 'id');
     }

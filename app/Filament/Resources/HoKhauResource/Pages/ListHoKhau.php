@@ -6,7 +6,7 @@ use App\Filament\Resources\HoKhauResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
 
-class ListHoKhaus extends ListRecords
+class ListHoKhau extends ListRecords
 {
     protected static string $resource = HoKhauResource::class;
 

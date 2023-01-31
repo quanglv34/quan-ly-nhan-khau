@@ -11,8 +11,6 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class HoKhauResource extends Resource
 {
@@ -35,6 +33,7 @@ class HoKhauResource extends Resource
                         ->label('Mã hộ khẩu')->unique(ignoreRecord: true),
                     Forms\Components\TextInput::make('maKhuVuc')
                         ->required()
+                        ->unique(ignoreRecord: true)
                         ->label('Mã khu vực'),
                     Forms\Components\TextInput::make('diaChi')
                         ->required()
@@ -42,9 +41,12 @@ class HoKhauResource extends Resource
                     Forms\Components\TextInput::make('ngayLap')->required()
                         ->label('Ngày
                 lập')->type('date'),
-                    Forms\Components\TextInput::make('ngayChuyenDi')->label('Ngày
+                    Forms\Components\TextInput::make('ngayChuyenDi')
+                        ->hiddenOn('create')->label
+                        ('Ngày
                 chuyển đi')->type('date'),
                     Forms\Components\TextInput::make('lyDoChuyen')
+                        ->hiddenOn('create')
                         ->label('Lý do chuyển'),
                     Forms\Components\Select::make('nguoiThucHienId')
                         ->required()
@@ -65,11 +67,15 @@ class HoKhauResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('maHoKhau')->label('Mã hộ khẩu'),
-                Tables\Columns\TextColumn::make('maKhuVuc')->label('Mã khu vực'),
+                Tables\Columns\TextColumn::make('maHoKhau')
+                    ->label('Mã hộ khẩu'),
+                Tables\Columns\TextColumn::make('maKhuVuc')
+                    ->label('Mã khu vực'),
                 Tables\Columns\TextColumn::make('diaChi')->label('Địa chỉ'),
-                Tables\Columns\TextColumn::make('ngayLap')->date()->label('Ngày lập'),
-                Tables\Columns\TextColumn::make('chuHo.hoVaTen')->label('Chủ hộ'),
+                Tables\Columns\TextColumn::make('ngayLap')->date()
+                    ->label('Ngày lập'),
+                Tables\Columns\TextColumn::make('chuHo.hoVaTen')
+                    ->label('Chủ hộ'),
             ])
             ->filters([
                 //
@@ -92,9 +98,10 @@ class HoKhauResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index'  => Pages\ListHoKhaus::route('/'),
-            'create' => Pages\CreateHoKhau::route('/create'),
-            'edit'   => Pages\EditHoKhau::route('/{record}/edit'),
+            'index'        => Pages\ListHoKhau::route('/'),
+            'create'       => Pages\CreateHoKhau::route('/create'),
+            'edit'         => Pages\EditHoKhau::route('/{record}/edit'),
+            'tach-ho-khau' => Pages\TachHoKhau::route('/{record}/tach-ho-khau'),
         ];
     }
 }

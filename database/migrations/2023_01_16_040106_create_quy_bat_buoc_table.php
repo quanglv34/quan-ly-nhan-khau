@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('quy_bat_buocs', function (Blueprint $table) {
+        Schema::create('quy_bat_buoc', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('hoDongId')->references('id')->on('ho_khau');
+            $table->foreignId('danhMucQuyId')->references('id')->on('danh_muc_quy');
         });
     }
 

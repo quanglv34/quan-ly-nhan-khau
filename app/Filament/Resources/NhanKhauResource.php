@@ -96,7 +96,6 @@ class NhanKhauResource extends Resource
                         0 => 'Nam',
                         1 => 'Nữ',
                     ]),
-
                 Tables\Columns\TextColumn::make('chungMinhThu.soCMT')
                     ->label('Chứng minh thư'),
                 Tables\Columns\TextColumn::make('maNhanKhau')
@@ -123,6 +122,7 @@ class NhanKhauResource extends Resource
             RelationManagers\TamTruRelationManager::class,
             RelationManagers\TamVangRelationManager::class,
             RelationManagers\KhaiTuRelationManager::class,
+            RelationManagers\TieuSuRelationManager::class,
         ];
     }
 

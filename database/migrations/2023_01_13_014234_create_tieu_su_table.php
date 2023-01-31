@@ -17,6 +17,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('nhanKhauId');
             $table->foreign('nhanKhauId')->references('id')->on('nhan_khau');
+            $table->date('tuNgay');
+            $table->date('denNgay');
+            $table->string('diaChi');
+            $table->string('ngheNghiep');
+            $table->string('noiLamViec');
             $table->timestamps();
         });
     }

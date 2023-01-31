@@ -16,7 +16,10 @@ return new class extends Migration
         Schema::create('dong_quy', function (Blueprint $table) {
             $table->id();
             $table->foreignId('danhMucQuyId')->references('id')->on('danh_muc_quy');
-            $table->timestamps();
+            $table->foreignId('nguoiDongId')->references('id')->on('nhan_khau');
+            $table->foreignId('hoDongId')->references('id')->on('ho_khau');
+            $table->unsignedBigInteger('soTienDong');
+            $table->date('ngayDong');
         });
     }
 

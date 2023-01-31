@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -16,9 +15,13 @@ return new class extends Migration
         Schema::create('thanh_vien_ho_khau', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('hoKhauId');
-            $table->foreign('hoKhauId')->references('id')->on('ho_khau');
+            $table->foreign('hoKhauId')
+                ->references('id')->on('ho_khau')
+                ->cascadeOnDelete();
             $table->unsignedBigInteger('nhanKhauId');
-            $table->foreign('nhanKhauId')->references('id')->on('nhan_khau');
+            $table->foreign('nhanKhauId')
+                ->references('id')->on('nhan_khau')
+                ->restrictOnDelete();
             $table->string('quanHeVoiChuHo');
         });
     }

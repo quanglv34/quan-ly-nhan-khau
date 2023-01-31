@@ -24,29 +24,29 @@ class KhaiTuRelationManager extends RelationManager
     public static function form(Form $form): Form
     {
         return $form
-            ->columns(1)
             ->schema([
                 Forms\Components\Select::make('nguoiChetId')
                     ->label('Người chết')
                     ->disabled()
                     ->relationship('nguoiChet', 'maNhanKhauVaHoVaTen')
                     ->default(Auth::user()->id),
-                Forms\Components\TextInput::make('maGiayKhaiTu')
+                Forms\Components\TextInput::make('soGiayKhaiTu')
                     ->required()
                     ->label('Mã giấy khai tử')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('lyDoChet')
-                    ->required()
-                    ->label('Lý do chết')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('ngayChet')->label('Ngày chết')
                     ->required()->type('date'),
                 Forms\Components\TextInput::make('ngayKhai')->label('Ngày khai')
                     ->required()->type('date'),
+                Forms\Components\TextInput::make('lyDoChet')
+                    ->required()
+                    ->label('Lý do chết')
+                    ->maxLength(255),
                 Forms\Components\Select::make('nguoiKhaiId')
-                    ->relationship('nguoiKhai', 'name')
+                    ->relationship('nguoiKhai', 'maNhanKhauVaHoVaTen')
                     ->label('Người khai')
-                    ->default(Auth::user()->id),
+                    ->preload()
+                    ->searchable(),
             ]);
     }
 
@@ -54,13 +54,17 @@ class KhaiTuRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id'),
+                Tables\Columns\TextColumn::make('soGiayKhaiTu')->label('Mã giấy khai tử'),
+                Tables\Columns\TextColumn::make('ngayChet')->date()->label('Ngày chết'),
+                Tables\Columns\TextColumn::make('ngayKhai')->date()->label('Ngày khai'),
+                Tables\Columns\TextColumn::make('lyDoChet')->label('Lý do chết'),
+                Tables\Columns\TextColumn::make('nguoiKhai.hoVaTen')->label('Người khai'),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make()->modalWidth('lg'),
+                Tables\Actions\CreateAction::make(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

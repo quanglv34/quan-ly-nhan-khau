@@ -13,7 +13,14 @@ class EditHoKhau extends EditRecord
     protected function getActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\Action::make('tach-ho-khau')
+                ->url(HoKhauResource::getUrl(
+                    'tach-ho-khau',
+                    ['record' => $this->record])
+                )
+                ->openUrlInNewTab()->label('Tách hộ khẩu'),
+
+            Actions\DeleteAction::make()->color('secondary'),
         ];
     }
 }

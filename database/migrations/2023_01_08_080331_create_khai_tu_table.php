@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('lyDoChet');
             $table->string('soGiayKhaiTu');
             $table->unsignedBigInteger('nguoiKhaiId')->unique();
-            $table->foreign('nguoiKhaiId')->references('id')->on('users');
+            $table->foreign('nguoiKhaiId')->references('id')->on('nhan_khau');
             $table->unsignedBigInteger('nguoiChetId')->unique();
             $table->foreign('nguoiChetId')->references('id')->on('nhan_khau');
             $table->timestamps();

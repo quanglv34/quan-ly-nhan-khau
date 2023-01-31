@@ -16,6 +16,6 @@ class KhaiTu extends Model
     }
 
     public function nguoiKhai(): BelongsTo {
-        return $this->belongsTo(User::class, 'nguoiKhaiId', 'id');
+        return $this->belongsTo(NhanKhau::class, 'nguoiKhaiId', 'id');
     }
 }

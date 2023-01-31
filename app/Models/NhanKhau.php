@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class NhanKhau extends Model
@@ -28,5 +29,10 @@ class NhanKhau extends Model
 
     public function khaiTu(): HasOne {
         return  $this->hasOne(KhaiTu::class, 'nguoiChetId', 'id');
+    }
+
+    public function tieuSu(): HasMany
+    {
+        return $this->hasMany(TieuSu::class, 'nhanKhauId', 'id');
     }
 }
