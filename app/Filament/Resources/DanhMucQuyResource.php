@@ -37,7 +37,8 @@ class DanhMucQuyResource extends Resource
                         LoaiDanhMucQuy::BatBuoc->value => 'Bắt buộc',
                         LoaiDanhMucQuy::DongGop->value => 'Đóng góp',
                     ])->required()->label('Loại quỹ'),
-                    Forms\Components\TextInput::make('tenQuy')->required()->label
+                    Forms\Components\TextInput::make('tenQuy')
+                        ->required()->label
                     ('Tên quỹ'),
                     Forms\Components\TextInput::make('ngayBatDau')->type('date')
                         ->label('Ngày bắt đầu'),
@@ -51,17 +52,24 @@ class DanhMucQuyResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('tenQuy')->label('Tên quỹ'),
+                Tables\Columns\TextColumn::make('tenQuy')
+                    ->label('Tên quỹ')
+                    ->searchable(),
                 Tables\Columns\BadgeColumn::make('loaiQuy')
                     ->enum([
                     LoaiDanhMucQuy::BatBuoc->value => 'Bắt buộc',
                     LoaiDanhMucQuy::DongGop->value => 'Đóng góp',
                 ])->label('Loại quỹ'),
-                Tables\Columns\TextColumn::make('ngayBatDau')->label('Ngày bắt đầu'),
-                Tables\Columns\TextColumn::make('ngayKetThuc')->label('Ngày kết thúc'),
+                Tables\Columns\TextColumn::make('ngayBatDau')
+                    ->label('Ngày bắt đầu'),
+                Tables\Columns\TextColumn::make('ngayKetThuc')
+                    ->label('Ngày kết thúc'),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('loaiQuy')->options([
+                    LoaiDanhMucQuy::BatBuoc->value => 'Bắt buộc',
+                    LoaiDanhMucQuy::DongGop->value => 'Đóng góp',
+                ])->multiple()
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -74,7 +82,7 @@ class DanhMucQuyResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\DongQuyRelationManager::class,
+            RelationManagers\QuyDongGopRelationManager::class,
             RelationManagers\QuyBatBuocRelationManager::class,
         ];
     }

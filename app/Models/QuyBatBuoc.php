@@ -14,4 +14,12 @@ class QuyBatBuoc extends Model
     public function hoKhau() {
         return $this->belongsTo(HoKhau::class, 'hoDongId', 'id');
     }
+
+    public function dongQuy() {
+        return $this->hasMany(DongQuy::class, ['danhMucQuyId', 'hoDongId'], ['danhMucQuyId', 'hoDongId']);
+    }
+
+    public function daHoanThanh() {
+        return $this->soTienPhaiDong <= $this->soTienDong;
+    }
 }

@@ -67,14 +67,14 @@ class HoKhauResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('maHoKhau')
+                Tables\Columns\TextColumn::make('maHoKhau')->searchable()
                     ->label('Mã hộ khẩu'),
-                Tables\Columns\TextColumn::make('maKhuVuc')
+                Tables\Columns\TextColumn::make('maKhuVuc')->searchable()
                     ->label('Mã khu vực'),
-                Tables\Columns\TextColumn::make('diaChi')->label('Địa chỉ'),
+                Tables\Columns\TextColumn::make('diaChi')->label('Địa chỉ')->searchable(),
                 Tables\Columns\TextColumn::make('ngayLap')->date()
                     ->label('Ngày lập'),
-                Tables\Columns\TextColumn::make('chuHo.hoVaTen')
+                Tables\Columns\TextColumn::make('chuHo.hoVaTen')->searchable()
                     ->label('Chủ hộ'),
             ])
             ->filters([

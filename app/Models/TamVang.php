@@ -9,4 +9,8 @@ class TamVang extends Model
 {
     use HasFactory;
     protected $table = 'tam_vang';
+
+    public function nhanKhau() {
+        return $this->hasOne(NhanKhau::class, 'id', 'nhanKhauId');
+    }
 }

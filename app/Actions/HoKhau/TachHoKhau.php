@@ -18,8 +18,6 @@ class TachHoKhau
 
     public function tachHoKhau(array $data): Model
     {
-        $taoHoKhauAction = new TaoHoKhau();
-
         $nhanKhauCu = ThanhVienHoKhau::where('nhanKhauId', '=',
             $data['chuHoId'])->first();
         $nhanKhauCu?->deleteQuietly();
@@ -27,7 +25,7 @@ class TachHoKhau
         $danhSachThanhVien = $data['thanhVien'];
         unset($data['thanhVien']);
 
-        $hoKhau = $taoHoKhauAction->handle($data);
+        $hoKhau = (new TaoHoKhau())->handle($data);
 
         foreach ($danhSachThanhVien as $thanhVien) {
             $nhanKhauCu = ThanhVienHoKhau::where('nhanKhauId', '=',

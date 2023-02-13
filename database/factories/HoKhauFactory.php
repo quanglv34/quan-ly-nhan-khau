@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,11 @@ class HoKhauFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'diaChi' => $this->faker->address(),
+            'maHoKhau' => 'HK' . $this->faker->postcode(),
+            'maKhuVuc' => 'KV' . $this->faker->postcode(),
+            'ngayLap' => $this->faker->dateTimeThisDecade(),
+            'nguoiThucHienId' => User::first()->id,
         ];
     }
 }

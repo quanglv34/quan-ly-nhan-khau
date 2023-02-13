@@ -12,8 +12,8 @@ class DanhMucQuy extends Model
     public $timestamps = false;
     protected $table = 'danh_muc_quy';
 
-    public function dongQuy(): HasMany {
-        return $this->hasMany(DongQuy::class, 'danhMucQuyId', 'id');
+    public function quyDongGop(): HasMany {
+        return $this->hasMany(QuyDongGop::class, 'danhMucQuyId', 'id');
     }
 
     public function quyBatBuoc(): HasMany {

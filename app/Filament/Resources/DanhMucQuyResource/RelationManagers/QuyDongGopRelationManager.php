@@ -2,17 +2,19 @@
 
 namespace App\Filament\Resources\DanhMucQuyResource\RelationManagers;
 
+use App\Enums\LoaiDanhMucQuy;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class DongQuyRelationManager extends RelationManager
+class QuyDongGopRelationManager extends RelationManager
 {
-    protected static string $relationship = 'dongQuy';
+    protected static string $relationship = 'quyDongGop';
 
     protected static ?string $recordTitleAttribute = 'id';
 
@@ -21,11 +23,18 @@ class DongQuyRelationManager extends RelationManager
     protected static ?string $modelLabel = 'đóng quỹ';
     protected static ?string $pluralModelLabel = 'đóng quỹ';
 
+    public static function canViewForRecord(Model $ownerRecord): bool
+    {
+        return $ownerRecord->loaiQuy === LoaiDanhMucQuy::DongGop->value;
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('nguoiDongQuyId')
+                Forms\Components\Select::make('nguoiDongId')
+                    ->required()
+                    ->preload()
                     ->relationship('nguoiDong', 'maNhanKhauVaHoVaTen')->label
                     ('Người đóng')->searchable()->afterStateUpdated(function (
                         $state
@@ -33,9 +42,13 @@ class DongQuyRelationManager extends RelationManager
 
                     }),
                 Forms\Components\Select::make('hoDongId')
+                    ->required()
+                    ->preload()
                     ->relationship('hoDong', 'maHoKhau')->label
                     ('Hộ đóng quỹ')->searchable(),
-                Forms\Components\TextInput::make('soTien')->numeric()->mask(fn (
+                Forms\Components\TextInput::make('soTienDong')
+                    ->required()
+                    ->numeric()->mask(fn (
                     Forms\Components\TextInput\Mask $mask
                 ) => $mask
                     ->numeric()
@@ -44,6 +57,7 @@ class DongQuyRelationManager extends RelationManager
                 )->label
                 ('Số tiền'),
                 Forms\Components\TextInput::make('ngayDong')->type('date')
+                    ->required()
                     ->label('Ngày đóng'),
             ]);
     }

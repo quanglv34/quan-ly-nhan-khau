@@ -18,10 +18,10 @@ class QuyBatBuocRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'id';
 
-    protected static ?string $title = 'Danh sách thu quỹ';
+    protected static ?string $title = 'Danh sách đóng quỹ';
 
-    protected static ?string $pluralModelLabel = 'thu quỹ';
-    protected static ?string $modelLabel = 'thu quỹ';
+    protected static ?string $pluralModelLabel = 'đóng quỹ';
+    protected static ?string $modelLabel = 'đóng quỹ';
 
     public static function canViewForRecord(Model $ownerRecord): bool
     {
@@ -32,10 +32,22 @@ class QuyBatBuocRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('id')
-                    ->required()
-                    ->maxLength(255),
-            ]);
+                Forms\Components\TextInput::make('soTienDong')
+                    ->label('Số điền đã đóng')
+                    ->mask(fn (Forms\Components\TextInput\Mask $mask) => $mask
+                        ->numeric()
+                        ->thousandsSeparator(',')
+                    )
+                    ->numeric()->required(),
+                Forms\Components\TextInput::make('soTienPhaiDong')
+                    ->mask(fn (Forms\Components\TextInput\Mask $mask) => $mask
+                        ->numeric()
+                        ->thousandsSeparator(',')
+                    )
+                    ->label('Số tiền phải đóng')
+                    ->numeric()->required(),
+                Forms\Components\DatePicker::make('ngayDong')->label('Ngày đóng')
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table
@@ -46,15 +58,18 @@ class QuyBatBuocRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('hoKhau.diaChi')->label('Địa chỉ'),
                 Tables\Columns\TextColumn::make('hoKhau.chuHo.hoVaTen')
                     ->label('Chủ hộ'),
+                Tables\Columns\BadgeColumn::make('soTienPhaiDong')->label('Số tiền phải đóng')->money('vnd'),
+                Tables\Columns\BadgeColumn::make('soTienDong')->label('Số tiền đã đóng')->color('success')->money('vnd'),
+                Tables\Columns\TextColumn::make('ngayDong')->label('Ngày đóng')->date('d.m.Y'),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()->modalWidth('lg'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->modalWidth('lg'),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([

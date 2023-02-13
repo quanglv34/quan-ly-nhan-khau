@@ -17,7 +17,10 @@ class DanhMucQuyFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'tenQuy' => $this->faker->words(5, true),
+            'ngayBatDau' => $this->faker->dateTimeBetween('-60 days', '-30 days'),
+            'ngayKetThuc' => $this->faker->dateTimeBetween('+30 days', '+60 days'),
+            'loaiQuy' => $this->faker->numberBetween(0,1),
         ];
     }
 }

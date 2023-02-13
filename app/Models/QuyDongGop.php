@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class DongQuy extends Model
+class QuyDongGop extends Model
 {
     use HasFactory;
-    protected $table = 'dong_quy';
+    protected $table = 'quy_dong_gop';
 
     public function nguoiDong(): BelongsTo {
         return $this->belongsTo(NhanKhau::class, 'nguoiDongId', 'id');

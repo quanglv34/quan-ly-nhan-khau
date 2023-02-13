@@ -10,4 +10,8 @@ class TamTru extends Model
     use HasFactory;
     public $timestamps = false;
     protected $table = 'tam_tru';
+
+    public function nhanKhau() {
+        return $this->hasOne(NhanKhau::class, 'id', 'nhanKhauId');
+    }
 }
