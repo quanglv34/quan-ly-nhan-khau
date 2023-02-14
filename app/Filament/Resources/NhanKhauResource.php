@@ -4,7 +4,10 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\NhanKhauResource\Pages;
 use App\Filament\Resources\NhanKhauResource\RelationManagers;
+use App\Models\KhaiTu;
 use App\Models\NhanKhau;
+use App\Models\TamTru;
+use App\Models\TamVang;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -65,7 +68,9 @@ class NhanKhauResource extends Resource
 
                             Forms\Components\TextInput::make('ghiChu')
                                 ->label('Ghi chú')
-                                ->columnSpan('full')
+                                ->columnSpan('full'),
+                            Forms\Components\DatePicker::make('ngayTao')->label('Ngày tạo'),
+                            Forms\Components\Select::make('nguoiTaoId')->label('Người tạo')->relationship('nguoiTao', 'name'),
                         ]),
                     Forms\Components\Fieldset::make('Chứng minh thư')
                         ->relationship('chungMinhThu')
@@ -77,6 +82,11 @@ class NhanKhauResource extends Resource
                             Forms\Components\TextInput::make('ngayCap')
                                 ->label('Ngày cấp')->type('date'),
                         ]),
+                    Forms\Components\Fieldset::make('Thông tin xoá nhân khẩu')->schema([
+                        Forms\Components\TextInput::make('lyDoXoa')->label('Lý do xoá'),
+                        Forms\Components\DatePicker::make('ngayXoa')->label('Ngày xoá'),
+                        Forms\Components\Select::make('nguoiXoaId')->relationship('nguoiXoa', 'name'),
+                    ])->visibleOn('edit')->label('Người xoá')
                 ]),
             ]);
     }
@@ -85,7 +95,9 @@ class NhanKhauResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('hoVaTen')
+                Tables\Columns\TextColumn::make('maNhanKhau')->searchable()
+                    ->label('Mã nhân khẩu'),
+                Tables\Columns\TextColumn::make('hoVaTen')->searchable()
                     ->label('Họ và tên'),
 
                 Tables\Columns\TextColumn::make('ngaySinh')
@@ -96,7 +108,7 @@ class NhanKhauResource extends Resource
                         0 => 'Nam',
                         1 => 'Nữ',
                     ]),
-                Tables\Columns\TextColumn::make('chungMinhThu.soCMT')
+                Tables\Columns\TextColumn::make('chungMinhThu.soCMT')->searchable()
                     ->label('Chứng minh thư'),
                 Tables\Columns\TextColumn::make('maNhanKhau')
                     ->label('Mã nhân khẩu'),
@@ -106,7 +118,31 @@ class NhanKhauResource extends Resource
                     ->label('Ngày chuyển đi'),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('Tình trạng')->options([
+                    1 => 'Tạm trú',
+                    2 => 'Tạm vắng',
+                    3 => 'Đã xoá',
+                    4 => 'Đã mất',
+                    5 => 'Chuyển đi',
+                ])->default(0)->query(function (Builder $query, $state) {
+                    switch ($state['value']) {
+                        case 1:
+                            $ids = TamTru::where('denNgay', '>' , today())->get('nhanKhauId')->toArray();
+                            return $query->whereIn('id', $ids);
+                        case 2:
+                            $ids = TamVang::where('denNgay', '>' , today())->get('nhanKhauId')->toArray();
+                            return $query->whereIn('id', $ids);
+                        case 3:
+                            return $query->whereNotNull('ngayXoa');
+                        case 4:
+                            $ids = KhaiTu::all('nguoiChetId');
+                            return $query->whereIn('id', $ids);
+                        case 5:
+                            return $query->whereNotNull('ngayChuyenDi');
+                        default:
+                            return $query;
+                    }
+                })
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -129,9 +165,9 @@ class NhanKhauResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index'  => Pages\ListNhanKhau::route('/'),
+            'index' => Pages\ListNhanKhau::route('/'),
             'create' => Pages\CreateNhanKhau::route('/create'),
-            'edit'   => Pages\EditNhanKhau::route('/{record}/edit'),
+            'edit' => Pages\EditNhanKhau::route('/{record}/edit'),
         ];
     }
 }

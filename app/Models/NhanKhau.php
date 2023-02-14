@@ -35,4 +35,12 @@ class NhanKhau extends Model
     {
         return $this->hasMany(TieuSu::class, 'nhanKhauId', 'id');
     }
+
+    public function nguoiTao(): BelongsTo {
+        return $this->belongsTo(User::class, 'nguoiTaoId' , 'id');
+    }
+
+    public function nguoiXoa(): BelongsTo {
+        return $this->belongsTo(User::class, 'nguoiTaoId' , 'id');
+    }
 }

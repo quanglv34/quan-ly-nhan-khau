@@ -17,7 +17,7 @@ class TamVangResource extends Resource
 {
     protected static ?string $model = TamVang::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-document-remove';
 
     protected static ?string $navigationGroup = 'Quản lý nhân khẩu';
 

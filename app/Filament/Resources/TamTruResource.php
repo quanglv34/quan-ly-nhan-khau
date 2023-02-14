@@ -17,7 +17,7 @@ class TamTruResource extends Resource
 {
     protected static ?string $model = TamTru::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-document-add';
 
     protected static ?string $navigationGroup = 'Quản lý nhân khẩu';
 

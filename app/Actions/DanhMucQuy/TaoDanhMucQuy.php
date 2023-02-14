@@ -37,11 +37,8 @@ class TaoDanhMucQuy
         if ($danhMuc->loaiQuy == LoaiDanhMucQuy::BatBuoc->value) {
             $danhSachHoKhau = HoKhau::all();
             foreach ($danhSachHoKhau as $hoKhau) {
-                $output = new ConsoleOutput();
-
                 $soTienPhaiDong = $this->data['soTienPhaiDong'];
                 $loaiDanhMucQuyBatBuoc = $this->data['loaiDanhMucQuyBatBuoc'];
-                $output->writeLine($loaiDanhMucQuyBatBuoc);
                 if ($loaiDanhMucQuyBatBuoc === LoaiDanhMucQuyBatBuoc::TheoThanhVien->value) {
                     $soTienPhaiDong = $hoKhau->thanhVien()->count() * $soTienPhaiDong;
                 }

@@ -15,4 +15,8 @@ class DinhChinh extends Model
     public function hoKhau(): BelongsTo {
         return $this->belongsTo(HoKhau::class, 'hoKhauId', 'id');
     }
+
+    public function nguoiThayDoi(): BelongsTo {
+        return $this->belongsTo(User::class, 'nguoiThayDoiId', 'id');
+    }
 }

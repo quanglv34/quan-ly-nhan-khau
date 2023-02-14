@@ -15,9 +15,12 @@ return new class extends Migration
     {
         Schema::create('dinh_chinh', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('hoKhauId');
-            $table->foreign('hoKhauId')->references('id')->on('ho_khau');
-
+            $table->foreignId('hoKhauId')->references('id')->on('ho_khau');
+            $table->string('thongTinThayDoi', 100);
+            $table->string('thayDoiTu', 100);
+            $table->string('thayDoiThanh', 100);
+            $table->date('ngayThayDoi');
+            $table->foreignId('nguoiThayDoiId')->references('id')->on('users');
         });
     }
 

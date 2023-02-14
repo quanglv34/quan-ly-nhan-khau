@@ -92,6 +92,7 @@ class HoKhauResource extends Resource
     {
         return [
             RelationManagers\ThanhVienRelationManager::class,
+            RelationManagers\DinhChinhRelationManager::class,
         ];
     }
 
